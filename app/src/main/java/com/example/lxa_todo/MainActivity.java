@@ -3,9 +3,11 @@ package com.example.lxa_todo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -28,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText newItem = findViewById(R.id.editTextNewItem);
+        final EditText newItem = findViewById(R.id.editTextNewItem);
 
-        RadioButton radioButton = findViewById(R.id.radioButton);
+        final RadioButton radioButton = findViewById(R.id.radioButton);
 
 
         Button btnDate = findViewById(R.id.btnDATE);
@@ -40,6 +42,26 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnAdd = findViewById(R.id.btnADD);
         Button btnCancel = findViewById(R.id.btnCANCEL);
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("item", newItem.getText().toString());
+                intent.putExtra("status", radioButton.isChecked());
+                intent.putExtra("date", txtDate.getText().toString());
+                intent.putExtra("time", txtTime.getText().toString());
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

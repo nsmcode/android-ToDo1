@@ -8,14 +8,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToDoAdapter extends BaseAdapter {
 
-    private List<Item> data;
+    private List<Item> data = new ArrayList<>();
 
-    public void setData(List<Item> data) {
-        this.data = data;
+    public void addItem(Item item) {
+        this.data.add(item);
+        notifyDataSetChanged();// da obavestimo o novim promenama...da se prikaze nova verzija
     }
 
     @Override
